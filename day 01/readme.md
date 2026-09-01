@@ -24,13 +24,13 @@ pip install openai
 Запуск скрипта
 ```
 bash
-python script.py
+python openApi.py
 ```
 
 ### Пример работы
 ```
 bash
-$ python script.py
+$ python openApi.py
 
 Введите ваш API ключ: sk-... (только при первом запуске)
 Ваш вопрос: Напиши приветствие на Python
