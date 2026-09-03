@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Чат с OpenAI</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="card">
+    <header>
+      <p class="eyebrow">OpenAI · gpt-5.4-mini</p>
+      <h1>Спросите ИИ</h1>
+      <p class="lead">Слева — обычный запрос. Справа — те же правила формата, длины и завершения. Кнопка «Отправить» запускает оба запроса.</p>
+    </header>
+
+    <form id="chat-form">
+      <div class="split">
+        <section class="pane" aria-labelledby="left-title">
+          <h2 id="left-title">Запрос и ответ</h2>
+          <label for="prompt">Ваш запрос</label>
+          <textarea id="prompt" name="prompt" rows="6" required placeholder="Например: объясни квантовую запутанность простыми словами"></textarea>
+          <button type="submit" id="send">Отправить</button>
+
+          <div class="reply" aria-live="polite">
+            <h3>Ответ без доп. условий</h3>
+            <p id="status-left" class="status">Пока ничего не отправлено.</p>
+            <pre id="answer-left" hidden></pre>
+            <dl id="meta-left" class="meta" hidden></dl>
+          </div>
+        </section>
+
+        <section class="pane" aria-labelledby="right-title">
+          <h2 id="right-title">Условия ответа</h2>
+          <label for="format">Описание формата ответа</label>
+          <textarea id="format" name="format" rows="3" placeholder="Например: маркированный список из трёх пунктов"></textarea>
+
+          <label for="length">Ограничение на длину ответа</label>
+          <textarea id="length" name="length" rows="2" placeholder="Например: не больше 40 слов"></textarea>
+
+          <label for="stop">Условие завершения ответа</label>
+          <textarea id="stop" name="stop" rows="2" placeholder="Например: закончи предложением с вопросом читателю"></textarea>
+
+          <div class="reply" aria-live="polite">
+            <h3>Ответ с условиями</h3>
+            <p id="status-right" class="status">Пока ничего не отправлено.</p>
+            <pre id="answer-right" hidden></pre>
+            <dl id="meta-right" class="meta" hidden></dl>
+          </div>
+        </section>
+      </div>
+    </form>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
