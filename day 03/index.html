@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Чат с OpenAI</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="card">
+    <header>
+      <p class="eyebrow">OpenAI · gpt-5.4-mini</p>
+      <h1>Спросите ИИ</h1>
+      <p class="lead">Слева — задача. Справа — роли экспертов (каждая с новой строки). «Отправить» запускает цепочку запросов по очереди.</p>
+    </header>
+
+    <form id="chat-form">
+      <div class="fields">
+        <div class="field">
+          <label for="prompt">Ваш запрос</label>
+          <textarea id="prompt" name="prompt" rows="8" required placeholder="Например: как оптимизировать медленный SQL-запрос"></textarea>
+        </div>
+        <div class="field">
+          <label for="experts">Роли экспертов</label>
+          <textarea id="experts" name="experts" rows="8" placeholder="По одной роли на строку, например:&#10;DBA&#10;бэкенд-разработчик&#10;продакт-менеджер"></textarea>
+        </div>
+      </div>
+      <button type="submit" id="send">Отправить</button>
+    </form>
+
+    <p id="pipeline-status" class="status">Пока ничего не отправлено.</p>
+    <div id="results" class="results" aria-live="polite"></div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
