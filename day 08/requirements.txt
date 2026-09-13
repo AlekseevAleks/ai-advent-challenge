@@ -1,0 +1,4 @@
+gradio>=4.44,<5
+openai>=1.40,<2
+huggingface_hub>=0.24,<1.0
+pydantic>=2.10,<2.11  # выше ломает Chatbot(type="messages") в gradio 4.44
