@@ -1,0 +1,16 @@
+# Секреты
+api_key.txt
+
+# Локальная база
+agents.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Инструменты
+.DS_Store
+*.log
