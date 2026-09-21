@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Chat</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>" />
+</head>
+<body>
+  <div class="app" id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Боковая панель">
+      <div class="sidebar__header">
+        <div class="brand">
+          <span class="brand__mark">AI</span>
+          <span class="brand__name">Chat</span>
+        </div>
+        <button class="icon-btn sidebar__close" id="sidebarClose" title="Скрыть панель" aria-label="Скрыть панель">✕</button>
+      </div>
+
+      <div class="sidebar__actions">
+        <button class="btn btn--ghost btn--block" id="settingsBtn">
+          <span class="btn__icon">⚙</span> Настройки
+        </button>
+        <button class="btn btn--ghost btn--block" id="memoryBtn">
+          <span class="btn__icon">🧠</span> Память
+        </button>
+        <button class="btn btn--primary btn--block" id="newChatBtn">
+          <span class="btn__icon">＋</span> Новый чат
+        </button>
+      </div>
+
+      <div class="sidebar__section-title">Чаты</div>
+      <nav class="chat-list" id="chatList" aria-label="Список чатов"></nav>
+
+      <div class="sidebar__footer">
+        <span class="status-dot" id="apiStatusDot"></span>
+        <span id="apiStatusText">API не настроен</span>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+
+    <!-- Main area -->
+    <main class="main" id="main">
+      <header class="topbar">
+        <button class="icon-btn topbar__menu" id="sidebarOpen" title="Показать панель" aria-label="Показать панель">☰</button>
+        <div class="topbar__info">
+          <h1 class="topbar__title" id="chatTitle">AI Chat</h1>
+          <div class="topbar__meta" id="chatMeta"></div>
+        </div>
+        <div class="topbar__actions">
+          <div class="profile-switch" id="profileSwitch">
+            <button class="profile-switch__button" id="profileSwitchBtn"
+              aria-haspopup="listbox" aria-expanded="false" title="Активный профиль">
+              <span class="profile-switch__label">Profile:</span>
+              <span class="profile-switch__name" id="profileSwitchName">—</span>
+              <span class="profile-switch__caret">▾</span>
+            </button>
+            <div class="profile-switch__menu" id="profileSwitchMenu" role="listbox" hidden></div>
+          </div>
+          <button class="icon-btn" id="memoryToggle" title="Показать память" aria-label="Показать память">🧠</button>
+          <button class="icon-btn" id="regenerateBtn" title="Повторить ответ" hidden>⟳</button>
+        </div>
+      </header>
+
+      <section class="view" id="view"></section>
+    </main>
+  </div>
+
+  <!-- Modal: new chat -->
+  <div class="modal" id="newChatModal" hidden>
+    <div class="modal__backdrop" data-close="newChatModal"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="newChatTitle">
+      <h2 class="modal__title" id="newChatTitle">Новый чат</h2>
+      <div class="field">
+        <span class="field__label">Модель</span>
+        <div class="combo" id="modelCombo">
+          <input class="input combo__input" id="modelSearch" type="text"
+            placeholder="Начните вводить название модели…" autocomplete="off"
+            spellcheck="false" role="combobox" aria-expanded="false"
+            aria-controls="modelOptions" aria-autocomplete="list" />
+          <button class="combo__clear" id="modelClear" type="button"
+            title="Очистить" aria-label="Очистить" hidden>✕</button>
+          <div class="combo__list" id="modelOptions" role="listbox" hidden></div>
+        </div>
+        <div class="field__hint" id="modelSelected"></div>
+      </div>
+      <div class="modal__hint" id="modelHint"></div>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" data-close="newChatModal">Отмена</button>
+        <button class="btn btn--primary" id="createChatBtn">Создать чат</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: confirm delete -->
+  <div class="modal" id="confirmModal" hidden>
+    <div class="modal__backdrop" data-close="confirmModal"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+      <h2 class="modal__title" id="confirmTitle">Удалить чат?</h2>
+      <p class="modal__text" id="confirmText">Это действие нельзя отменить.</p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" data-close="confirmModal">Отмена</button>
+        <button class="btn btn--danger" id="confirmOkBtn">Удалить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: long-term memory entry -->
+  <div class="modal" id="memoryModal" hidden>
+    <div class="modal__backdrop" data-close="memoryModal"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="memoryModalTitle">
+      <h2 class="modal__title" id="memoryModalTitle">Запись долговременной памяти</h2>
+      <label class="field">
+        <span class="field__label">Категория</span>
+        <select class="input" id="memoryCategory">
+          <option value="preference">preference — предпочтение</option>
+          <option value="decision">decision — решение</option>
+          <option value="constraint">constraint — ограничение</option>
+          <option value="fact">fact — факт</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="field__label">Ключ</span>
+        <input class="input" id="memoryKey" type="text" spellcheck="false"
+          placeholder="preferred_language" />
+      </label>
+      <label class="field">
+        <span class="field__label">Значение</span>
+        <input class="input" id="memoryValue" type="text" placeholder="Python" />
+      </label>
+      <div class="modal__hint" id="memoryModalHint"></div>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" data-close="memoryModal">Отмена</button>
+        <button class="btn btn--primary" id="memorySaveBtn">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
