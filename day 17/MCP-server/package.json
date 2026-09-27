@@ -1,0 +1,42 @@
+{
+  "name": "mcp-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local MCP Gateway: универсальный MCP-сервер, предоставляющий tools подключённых API-провайдеров (weather, github и др.)",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c blue,green \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "tsx watch src/server/index.ts",
+    "dev:web": "npm --prefix web run dev",
+    "build": "npm run build:server && npm run build:web",
+    "build:server": "tsc -p tsconfig.build.json",
+    "build:web": "npm --prefix web run build",
+    "start": "node dist/src/server/index.js",
+    "validate-config": "tsx src/cli/validate-config.ts",
+    "validate-config:prod": "node dist/src/cli/validate-config.js",
+    "mcp-stdio": "tsx src/server/mcp-stdio.ts",
+    "mcp-stdio:prod": "node dist/src/server/mcp-stdio.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@fastify/static": "^8.3.0",
+    "@modelcontextprotocol/sdk": "^1.27.0",
+    "fastify": "^5.6.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "concurrently": "^9.2.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
