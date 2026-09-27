@@ -1,0 +1,10 @@
+{
+  "id": "github",
+  "enabled": true,
+  "name": "GitHub",
+  "baseUrl": "https://api.github.com",
+  "settings": {
+    "timeout": 10000
+  },
+  "tools": {}
+}
