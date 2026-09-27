@@ -1,0 +1,86 @@
+{
+  "request_id": "2026-09-20T19-24-13_b9bb0161",
+  "timestamp": "2026-09-20T19:24:14.088903+00:00",
+  "chat_id": "b5b125c9-2a25-45cc-b8b6-ff5407fe4097",
+  "model": "sber/gigachat-2-pro",
+  "api_url": "https://polza.ai/api/v1",
+  "request": {
+    "method": "POST",
+    "endpoint": "/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-***MASKED***"
+    },
+    "body": {
+      "model": "sber/gigachat-2-pro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Долговременная память о пользователе:\n- разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "system",
+          "content": "Текущая задача:\nЦель: Теперь будем разрабатывать интернет-магазин. Наша текущая задача — создать backend API. Используем FastAPI и PostgreSQL. На первом этапе нужно реализовать регистрацию и авторизацию пользователей через JWT."
+        },
+        {
+          "role": "user",
+          "content": "разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "assistant",
+          "content": "Предпочтения запомнил. Буду учитывать в дальнейших разговорах."
+        },
+        {
+          "role": "user",
+          "content": "Теперь будем разрабатывать интернет-магазин. Наша текущая задача — создать backend API. Используем FastAPI и PostgreSQL. На первом этапе нужно реализовать регистрацию и авторизацию пользователей через JWT."
+        },
+        {
+          "role": "user",
+          "content": "Теперь будем разрабатывать интернет-магазин. Наша текущая задача — создать backend API. Используем FastAPI и PostgreSQL. На первом этапе нужно реализовать регистрацию и авторизацию пользователей через JWT."
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "chunks": [
+        {
+          "id": "error_1789932254099",
+          "object": "chat.completion.chunk",
+          "created": 1789932254,
+          "model": "sber/gigachat-2-pro",
+          "provider": "unknown",
+          "error": {
+            "code": "BAD_REQUEST",
+            "message": "Invalid params: system message must be the first message",
+            "metadata": {
+              "attempts": [
+                {
+                  "provider": "Sber GigaChat",
+                  "reason": "UNKNOWN"
+                }
+              ]
+            }
+          },
+          "trace_id": "906c8dbe-8956-4864-ab2f-3cedbb5fa407",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": ""
+              },
+              "finish_reason": "error"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "duration_ms": 289,
+  "error": null
+}

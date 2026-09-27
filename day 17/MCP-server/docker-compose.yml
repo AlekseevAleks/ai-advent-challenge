@@ -1,0 +1,17 @@
+services:
+  mcp-gateway:
+    build: .
+    image: mcp-gateway:local
+    container_name: mcp-gateway
+    # Порт пробрасывается ТОЛЬКО на loopback — сервер не доступен извне
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+    environment:
+      - MCP_HOST=127.0.0.1
+      - MCP_PORT=3000
+      # Секреты можно передать через env вместо редактирования config/*.json:
+      # - GITHUB_TOKEN=ghp_...
+    restart: unless-stopped

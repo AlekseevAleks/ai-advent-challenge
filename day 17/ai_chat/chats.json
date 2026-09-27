@@ -1,0 +1,144 @@
+{
+  "chats": [
+    {
+      "id": "4b33a70a-79b6-4474-9538-48bde1938453",
+      "title": "Привет, какая погода в Москве?",
+      "model": "openai/gpt-4o-mini",
+      "created_at": "2026-09-27T19:50:07.081938+00:00",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Привет, какая погода в Москве?",
+          "request_id": "2026-09-27T19-50-25_2ce803ce",
+          "usage": {
+            "prompt_tokens": 83,
+            "completion_tokens": 32,
+            "total_tokens": 115,
+            "cost_rub": 0.00373666
+          }
+        },
+        {
+          "role": "assistant",
+          "content": "Привет! К сожалению, я не могу предоставить актуальную информацию о погоде. Лучше всего проверить в приложении или на сайте прогноза погоды.",
+          "usage": {
+            "prompt_tokens": 83,
+            "completion_tokens": 32,
+            "total_tokens": 115,
+            "cost_rub": 0.00373666
+          },
+          "request_id": "2026-09-27T19-50-25_2ce803ce"
+        },
+        {
+          "role": "user",
+          "content": "какие в github есть репозитории?",
+          "request_id": "2026-09-27T19-53-08_c2845c38",
+          "usage": {
+            "prompt_tokens": 83,
+            "completion_tokens": 143,
+            "total_tokens": 226,
+            "cost_rub": 0.01159959
+          }
+        },
+        {
+          "role": "assistant",
+          "content": "На GitHub множество репозиториев в разных категориях: от библиотек и фреймворков до приложений и инструментов. Популярные категории включают:\n\n1. **Фреймворки** (например, Django, Flask, FastAPI)\n2. **Библиотеки** (например, NumPy, Pandas, TensorFlow)\n3. **Инструменты разработки** (например, Docker, Kubernetes)\n4. **Примеры проектов** (например, учебные проекты, демо-приложения)\n5. **Открытые данные** (например, наборы данных для анализа)\n\nВы можете исследовать репозитории по тегам или по популярности.",
+          "usage": {
+            "prompt_tokens": 83,
+            "completion_tokens": 143,
+            "total_tokens": 226,
+            "cost_rub": 0.01159959
+          },
+          "request_id": "2026-09-27T19-53-08_c2845c38"
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github",
+          "request_id": "2026-09-27T20-00-18_c4a4d40f",
+          "usage": {
+            "prompt_tokens": 243,
+            "completion_tokens": 95,
+            "total_tokens": 338,
+            "cost_rub": 0.01103289
+          }
+        },
+        {
+          "role": "assistant",
+          "content": "К сожалению, я не могу напрямую вывести список репозиториев GitHub, так как не имею доступа к интернету. Но вы можете найти репозитории, посетив [GitHub](https://github.com) и используя поиск или разделы, такие как \"Trending\" или \"Explore\". \n\nЧтобы найти репозитории по технологии, используйте фильтры. Например, вы можете искать \"Python\" и найти популярные библиотеки и проекты на Python.",
+          "usage": {
+            "prompt_tokens": 243,
+            "completion_tokens": 95,
+            "total_tokens": 338,
+            "cost_rub": 0.01103289
+          },
+          "request_id": "2026-09-27T20-00-18_c4a4d40f"
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github",
+          "request_id": "2026-09-27T20-04-54_33f004f2",
+          "usage": {
+            "prompt_tokens": 83,
+            "completion_tokens": 122,
+            "total_tokens": 205,
+            "cost_rub": 0.01011201
+          }
+        },
+        {
+          "role": "assistant",
+          "content": "Чтобы вывести список репозиториев пользователя на GitHub, можно использовать GitHub API. Например, следующий код на Python с использованием библиотеки `requests` позволит вам получить список репозиториев:\n\n```python\nimport requests\n\nusername = 'имя_пользователя'  # замените на имя пользователя GitHub\nurl = f'https://api.github.com/users/{username}/repos'\n\nresponse = requests.get(url)\nrepos = response.json()\n\nfor repo in repos:\n    print(repo['name'])\n```\n\nНе забудьте заменить `имя_пользователя` на нужное.",
+          "usage": {
+            "prompt_tokens": 83,
+            "completion_tokens": 122,
+            "total_tokens": 205,
+            "cost_rub": 0.01011201
+          },
+          "request_id": "2026-09-27T20-04-54_33f004f2"
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github",
+          "request_id": "2026-09-27T20-13-34_b10c584d",
+          "usage": {
+            "prompt_tokens": 851,
+            "completion_tokens": 23,
+            "total_tokens": 874,
+            "cost_rub": 0.01669987
+          }
+        },
+        {
+          "role": "assistant",
+          "content": "Пожалуйста, укажи, что именно ты хочешь искать в репозиториях GitHub.",
+          "usage": {
+            "prompt_tokens": 851,
+            "completion_tokens": 23,
+            "total_tokens": 874,
+            "cost_rub": 0.01669987
+          },
+          "request_id": "2026-09-27T20-13-34_b10c584d"
+        },
+        {
+          "role": "user",
+          "content": "Какая погода в москве?",
+          "request_id": "2026-09-27T20-14-07_b87aa3ad",
+          "usage": {
+            "prompt_tokens": 1068,
+            "completion_tokens": 60,
+            "total_tokens": 1128,
+            "cost_rub": 0.02316376
+          }
+        },
+        {
+          "role": "assistant",
+          "content": "В Москве погода следующая:\n\n- Температура: 12.1°C\n- Описание: Пасмурно\n- Влажность: 76%\n- Скорость ветра: 3.1 км/ч\n- Осадки: нет\n\nСейчас ночь.",
+          "usage": {
+            "prompt_tokens": 1068,
+            "completion_tokens": 60,
+            "total_tokens": 1128,
+            "cost_rub": 0.02316376
+          },
+          "request_id": "2026-09-27T20-14-07_b87aa3ad"
+        }
+      ]
+    }
+  ]
+}

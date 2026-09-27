@@ -1,0 +1,2390 @@
+{
+  "request_id": "2026-09-20T19-28-02_edc5d2cb",
+  "timestamp": "2026-09-20T19:28:35.383324+00:00",
+  "chat_id": "7ef0a430-b311-4e39-bb0a-6d60e361a22c",
+  "model": "deepseek/deepseek-v4-flash-0731",
+  "api_url": "https://polza.ai/api/v1",
+  "request": {
+    "method": "POST",
+    "endpoint": "/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-***MASKED***"
+    },
+    "body": {
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Долговременная память о пользователе:\n- Я разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "system",
+          "content": "Текущая задача:\nЦель: Теперь будем разрабатывать интернет-магазин. Наша текущая задача — создать backend API. Используем FastAPI и PostgreSQL. На первом этапе нужно реализовать регистрацию и авторизацию пользователей через JWT."
+        },
+        {
+          "role": "user",
+          "content": "Я разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "assistant",
+          "content": "Запомнил: Python, FastAPI, краткие ответы на русском."
+        },
+        {
+          "role": "user",
+          "content": "Теперь будем разрабатывать интернет-магазин. Наша текущая задача — создать backend API. Используем FastAPI и PostgreSQL. На первом этапе нужно реализовать регистрацию и авторизацию пользователей через JWT."
+        },
+        {
+          "role": "assistant",
+          "content": "Отлично. План:\n\n1. **Стек**: FastAPI, SQLAlchemy 2.0, Alembic, Pydantic v2, PyJWT, passlib[bcrypt] или python-bcrypt.\n2. **Модель User**: id, email (уникальный), hashed_password, is_active, created_at.\n3. **Схемы**: UserCreate, UserRead, Token.\n4. **Роуты**:\n   - `POST /auth/register` — создание пользователя, возврат токена.\n   - `POST /auth/login` — проверка credentials, возврат токена.\n   - `GET /users/me` — информация о текущем пользователе (защищённый).\n5. **Безопасность**: JWT access token (например, 30 мин), пароль хэшируется bcrypt.\n6. **Структура проекта**:\n   ```\n   app/\n     main.py\n     core/config.py\n     models/\n     schemas/\n     api/routes/\n     crud/\n     db/\n   ```\n\nНужен ли полный код сразу, или сначала обсудим детали (роли, refresh token и т.п.)?"
+        },
+        {
+          "role": "user",
+          "content": "Хорошо. Для JWT будем использовать access token на 15 минут и refresh token на 30 дней."
+        },
+        {
+          "role": "assistant",
+          "content": "Отлично. Тогда используем два токена:\n\n- **Access token** (15 мин) — в ответе на `/auth/register`, `/auth/login`, `/auth/refresh`.\n- **Refresh token** (30 дней) — тоже в ответе, но клиент должен хранить его безопасно (обычно в httpOnly cookie или в памяти). При каждом запросе на обновление — отправляется в теле или в заголовке.\n\nВарианты реализации:\n1. **Хранение refresh в БД** — таблица `refresh_tokens` (id, user_id, token_hash, expires_at, revoked). Позволяет отзывать и контролировать.\n2. **Без хранения** — refresh — это просто JWT с большим сроком, но тогда нельзя принудительно отозвать.\n\nЯ рекомендую первый вариант (хранить хеш токена в БД).\n\n**Структура**:\n```\napp/\n  core/config.py          # настройки (секрет, время жизни)\n  db/session.py           # SQLAlchemy\n  models/user.py\n  models/refresh_token.py\n  schemas/auth.py         # UserCreate, UserRead, TokenPair\n  services/security.py    # создание/проверка токенов, хэширование\n  api/routes/auth.py      # register, login, refresh\n  main.py                 # FastAPI app\n```\n\n**Основные роуты**:\n- `POST /auth/register` — создать пользователя → выдать `TokenPair`.\n- `POST /auth/login` — проверить email/password → выдать `TokenPair`.\n- `POST /auth/refresh` — проверить refresh token → выдать новую пару.\n- `GET /users/me` — защищённый endpoint, возвращает текущего пользователя.\n\nНачну писать код? Если да, уточни:\n- Хэшировать refresh token в БД (SHA-256) — делаем?\n- Refresh token передаётся в теле JSON или в cookie? (например, `{\"refresh_token\": \"...\"}`)."
+        },
+        {
+          "role": "user",
+          "content": "Какой срок действия refresh token мы выбрали?"
+        },
+        {
+          "role": "assistant",
+          "content": "Мы выбрали: **access token — 15 минут**, **refresh token — 30 дней**."
+        },
+        {
+          "role": "user",
+          "content": "Регистрацию мы уже реализовали. Сейчас занимаемся refresh token. После этого будем делать восстановление пароля."
+        },
+        {
+          "role": "user",
+          "content": "Регистрацию мы уже реализовали. Сейчас занимаемся refresh token. После этого будем делать восстановление пароля."
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "chunks": [
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932484,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "Мы",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "Мы",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932484,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " уже выбра",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " уже выбра",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932485,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "ли срок",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "ли срок",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932485,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "и: access 15 мин",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "и: access 15 мин",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932485,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": ", refresh 30 дней. Те",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": ", refresh 30 дней. Те",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932485,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "перь задача",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "перь задача",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932486,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " —",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " —",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932486,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " реализова",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " реализова",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932486,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "ть refresh token.",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "ть refresh token.",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932486,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "\n\nН",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "\n\nН",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932487,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "ужно сп",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "ужно сп",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932487,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "роек",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "роек",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932487,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "тировать и",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "тировать и",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932488,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " реализовать функ",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " реализовать функ",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932488,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "циональ",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "циональ",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932488,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "ность об",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "ность об",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932488,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "новления ток",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "новления ток",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932489,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "енов. У",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "енов. У",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932489,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "точним",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "точним",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932489,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " детали: как",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " детали: как",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932490,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " хранить refresh",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " хранить refresh",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932490,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " token (в",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " token (в",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932490,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " БД с",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " БД с",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932490,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " хешем), как",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " хешем), как",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932491,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " передавать (в теле",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " передавать (в теле",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932491,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " или cookie",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " или cookie",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932491,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "), какие",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "), какие",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932492,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " endpoint",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " endpoint",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932492,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "'",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "'",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932492,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "ы.",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "ы.",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932492,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " Затем",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " Затем",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932493,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " напишем код.\n\nОтвет",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " напишем код.\n\nОтвет",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932493,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": " должен быть кратким",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": " должен быть кратким",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932493,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": ", по",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": ", по",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932494,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "-",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "-",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932494,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": null,
+                "reasoning": "русски.",
+                "reasoning_details": [
+                  {
+                    "index": 0,
+                    "type": "reasoning.text",
+                    "text": "русски.",
+                    "format": "unknown"
+                  }
+                ]
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932495,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "От",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932496,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "лично. Реализу",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932496,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ем refresh token.\n\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932496,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "**Д",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932497,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "етали:**\n- Х",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932497,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ранение:",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932497,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " табли",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932498,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ца `refresh_tokens` (id",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932498,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ", user_id, has",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932498,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "hed_token, expires_at, revoked",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932498,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ").\n- Пере",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932499,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "дача: в",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932499,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " теле JSON (",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932499,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "например, `{\"refresh_token\": ",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932499,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "\"...\"}`)",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932500,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " — про",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932500,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ще для",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932500,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " те",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932501,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "стов",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932501,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".\n- Endpoint: `POST",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932501,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " /auth/refresh` — принима",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932501,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ет refresh token",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932502,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ", проверяет ва",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932502,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "лидность (",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932502,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "не ист",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932503,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ёк,",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932503,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " не от",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932503,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "озван),",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932504,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " выда",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932505,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ёт новую пару.\n\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932506,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "**П",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932506,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "лан:",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932506,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "**\n1. М",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932507,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "одель `RefreshToken`.\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932507,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "2. Сер",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932507,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "вис для",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932507,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " генера",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932508,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ции и",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932508,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " хе",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932508,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ширования refresh",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932509,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " token",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932509,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".\n3. Р",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932509,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "оу",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932509,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ты:",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932510,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " `/",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932510,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "auth/refresh` (об",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932510,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "новление), возможно",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932511,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " добав",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932511,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "лю",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932511,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " `",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932511,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "POST /auth/logout` для",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932512,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " отзыва (",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932512,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "оп",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932512,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ционально).\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932513,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "4. Ре",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932513,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "али",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932513,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "зация в",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932513,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " к",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932514,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "оде.\n\nНачинаю п",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932514,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "исать код для",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932514,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " этих",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932515,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " част",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932515,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "Inceptron",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ей.",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213034252274503681",
+          "object": "chat.completion.chunk",
+          "created": 1789932515,
+          "model": "deepseek/deepseek-v4-flash-0731",
+          "provider": "openrouter",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": null,
+                "reasoning": null
+              },
+              "finish_reason": "stop",
+              "native_finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 1091,
+            "completion_tokens": 299,
+            "total_tokens": 1390,
+            "completion_tokens_details": {
+              "reasoning_tokens": 141,
+              "audio_tokens": 0,
+              "image_tokens": 0,
+              "accepted_prediction_tokens": null,
+              "rejected_prediction_tokens": null
+            },
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "server_tool_use": null,
+            "cost_rub": 0.0173069,
+            "cost": 0.0173069,
+            "plugins": null
+          }
+        }
+      ]
+    }
+  },
+  "duration_ms": 32654,
+  "error": null
+}

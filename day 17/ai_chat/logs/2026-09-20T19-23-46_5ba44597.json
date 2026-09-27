@@ -1,0 +1,115 @@
+{
+  "request_id": "2026-09-20T19-23-46_5ba44597",
+  "timestamp": "2026-09-20T19:23:47.129782+00:00",
+  "chat_id": "b5b125c9-2a25-45cc-b8b6-ff5407fe4097",
+  "model": "sber/gigachat-2-pro",
+  "api_url": "https://polza.ai/api/v1",
+  "request": {
+    "method": "POST",
+    "endpoint": "/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-***MASKED***"
+    },
+    "body": {
+      "model": "sber/gigachat-2-pro",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Долговременная память о пользователе:\n- разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "user",
+          "content": "разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "user",
+          "content": "разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "chunks": [
+        {
+          "id": "gen_2213033176809607169",
+          "object": "chat.completion.chunk",
+          "created": 1789932226,
+          "model": "sber/gigachat-2-pro",
+          "provider": "sber-gigachat",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Предпочтения запомнил.",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213033176809607169",
+          "object": "chat.completion.chunk",
+          "created": 1789932227,
+          "model": "sber/gigachat-2-pro",
+          "provider": "sber-gigachat",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Буду учитывать в дальнейших разговорах.",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2213033176809607169",
+          "object": "chat.completion.chunk",
+          "created": 1789932227,
+          "model": "sber/gigachat-2-pro",
+          "provider": "sber-gigachat",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": null,
+                "reasoning": null
+              },
+              "finish_reason": "stop",
+              "native_finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 123,
+            "completion_tokens": 16,
+            "total_tokens": 139,
+            "completion_tokens_details": null,
+            "prompt_tokens_details": null,
+            "server_tool_use": null,
+            "cost_rub": 0.0973,
+            "cost": 0.0973,
+            "plugins": null
+          }
+        }
+      ]
+    }
+  },
+  "duration_ms": 814,
+  "error": null
+}

@@ -1,0 +1,2088 @@
+{
+  "request_id": "2026-09-27T20-00-18_c4a4d40f",
+  "timestamp": "2026-09-27T20:00:21.903790+00:00",
+  "chat_id": "4b33a70a-79b6-4474-9538-48bde1938453",
+  "model": "openai/gpt-4o-mini",
+  "api_url": "https://polza.ai/api/v1",
+  "request": {
+    "method": "POST",
+    "endpoint": "/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-***MASKED***"
+    },
+    "body": {
+      "model": "openai/gpt-4o-mini",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Долговременная память о пользователе:\n- Я разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "user",
+          "content": "какие в github есть репозитории?"
+        },
+        {
+          "role": "assistant",
+          "content": "На GitHub множество репозиториев в разных категориях: от библиотек и фреймворков до приложений и инструментов. Популярные категории включают:\n\n1. **Фреймворки** (например, Django, Flask, FastAPI)\n2. **Библиотеки** (например, NumPy, Pandas, TensorFlow)\n3. **Инструменты разработки** (например, Docker, Kubernetes)\n4. **Примеры проектов** (например, учебные проекты, демо-приложения)\n5. **Открытые данные** (например, наборы данных для анализа)\n\nВы можете исследовать репозитории по тегам или по популярности."
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github"
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github"
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "chunks": [
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "К",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " сожалению",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " я",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " не",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " могу",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " напрямую",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " вывести",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " список",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " реп",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "оз",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "итор",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "иев",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Git",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Hub",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " так",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " как",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " не",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " име",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ю",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " доступа",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " к",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " интернет",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "у",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Но",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " вы",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " можете",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " найти",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " реп",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "озит",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ории",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " посет",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ив",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " [",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Git",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Hub",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "](",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "https",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "://",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "github",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539220,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".com",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ")",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " и",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " используя",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " поиск",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " или",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " раздел",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ы",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " такие",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " как",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " \"",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Trending",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "\"",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " или",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " \"",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Explore",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "\".",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " \n\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Чтобы",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " найти",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " реп",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "озит",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ории",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " по",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " технологии",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " использу",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "йте",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " филь",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "т",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ры",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Например",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " вы",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " можете",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " искать",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " \"",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Python",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "\"",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " и",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " найти",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " популяр",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ные",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " библи",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "отеки",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " и",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " проекты",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " на",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Python",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_56fbb242c4",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215579089915613185",
+          "object": "chat.completion.chunk",
+          "created": 1790539221,
+          "model": "openai/gpt-4o-mini",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": null,
+                "reasoning": null
+              },
+              "finish_reason": "stop",
+              "native_finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 243,
+            "completion_tokens": 95,
+            "total_tokens": 338,
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0,
+              "accepted_prediction_tokens": null,
+              "rejected_prediction_tokens": null
+            },
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "server_tool_use": null,
+            "cost_rub": 0.01103289,
+            "cost": 0.01103289,
+            "plugins": null
+          }
+        }
+      ]
+    }
+  },
+  "duration_ms": 3820,
+  "error": null
+}

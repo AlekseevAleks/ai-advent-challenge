@@ -1,0 +1,970 @@
+{
+  "request_id": "2026-09-20T16-58-12_a784d5d5",
+  "timestamp": "2026-09-20T16:58:19.648121+00:00",
+  "chat_id": "8ebd0b59-bcf7-4a5e-a6a6-0b1b945e5ac7",
+  "model": "deepseek/deepseek-chat-v3.1",
+  "api_url": "https://polza.ai/api/v1",
+  "request": {
+    "method": "POST",
+    "endpoint": "/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-***MASKED***"
+    },
+    "body": {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "messages": [
+        {
+          "role": "user",
+          "content": "Привет! Как дела? Ты кто?"
+        },
+        {
+          "role": "assistant",
+          "content": "Привет! 😊\n\nОтлично, спасибо, что спросил(а)! У меня всё хорошо — я всегда готов(а) помочь с любыми вопросами.\n\nЯ **DeepSeek-V3**, твой искуственный интеллект-ассистент от компании **DeepSeek**. Я здесь, чтобы помогать тебе с самыми разными задачами: отвечать на вопросы, генерировать тексты, переводить языки, искать информацию и многое другое. 😊  \n\nА как у тебя дела? Чем могу помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Меня зовут Алексей! Ка у тебя дела?"
+        },
+        {
+          "role": "assistant",
+          "content": "Приятно познакомиться, Алексей! 😊 У меня всё отлично, как всегда — работаю в полную силу и готов помогать тебе с любыми вопросами! 💪\n\nА у тебя как дела? Всё хорошо? 😊"
+        },
+        {
+          "role": "user",
+          "content": "Помнишь мое имя?"
+        },
+        {
+          "role": "assistant",
+          "content": "Да конечно, Алексей! 😊  \nТы представился в предыдущем сообщении, и я запомнил.  \nРад снова пообщаться! Чем тебе помочь?"
+        },
+        {
+          "role": "user",
+          "content": "Аааа"
+        },
+        {
+          "role": "assistant",
+          "content": "😄 Я всё ещё здесь, Алексей! Что-то развеселило или просто эмоции прорвались?  \nРасскажешь, что у тебя на уме? 😊"
+        },
+        {
+          "role": "user",
+          "content": "Расскажи анекдот"
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      }
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "chunks": [
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923494,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "К",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923495,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "онечно,",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923495,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Алекс",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923495,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ей!",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923495,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " 😄  \n\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923495,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Вот",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923495,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " а",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "нек",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "дот",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " для те",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "бя:",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "  \n\n**",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Пр",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ограмми",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923496,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ст ста",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "вит",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " на т",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "умбо",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "чку перед",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " с",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ном два",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " стака",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923497,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "на.",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Один",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " с водой",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " — на",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " случай,",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " если за",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "хочет",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " пить",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " А второй",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " пу",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "стой —",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " на случай",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ", если",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923498,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " не за",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "хочет",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".**  \n\n",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Н",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "у как",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "?",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "DeepInfra",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " 😂",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2212996547134885889",
+          "object": "chat.completion.chunk",
+          "created": 1789923499,
+          "model": "deepseek/deepseek-chat-v3.1",
+          "provider": "openrouter",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": null,
+                "reasoning": null
+              },
+              "finish_reason": "stop",
+              "native_finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 335,
+            "completion_tokens": 79,
+            "total_tokens": 414,
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0,
+              "accepted_prediction_tokens": null,
+              "rejected_prediction_tokens": null
+            },
+            "prompt_tokens_details": {
+              "cached_tokens": 2,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "server_tool_use": null,
+            "cost_rub": 0.01865776,
+            "cost": 0.01865776,
+            "plugins": null
+          }
+        }
+      ]
+    }
+  },
+  "duration_ms": 7322,
+  "error": null
+}

@@ -1,0 +1,814 @@
+{
+  "request_id": "2026-09-27T20-13-34_b10c584d",
+  "timestamp": "2026-09-27T20:13:39.041574+00:00",
+  "chat_id": "4b33a70a-79b6-4474-9538-48bde1938453",
+  "model": "openai/gpt-4o-mini",
+  "api_url": "https://polza.ai/api/v1",
+  "request": {
+    "method": "POST",
+    "endpoint": "/chat/completions",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer sk-***MASKED***"
+    },
+    "body": {
+      "model": "openai/gpt-4o-mini",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Долговременная память о пользователе:\n- Я разработчик на Python. Для backend я предпочитаю FastAPI. Также мне нравятся краткие ответы на русском языке. Запомни эти предпочтения для будущих разговоров."
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github"
+        },
+        {
+          "role": "user",
+          "content": "выведи список репозиториев github"
+        },
+        {
+          "role": "assistant",
+          "content": "",
+          "tool_calls": [
+            {
+              "id": "call_oam7gdhnQd3afjKeDOyUQ5ja",
+              "type": "function",
+              "function": {
+                "name": "github_search_repositories",
+                "arguments": "{\"query\":\"\",\"limit\":10}"
+              }
+            }
+          ]
+        },
+        {
+          "role": "tool",
+          "tool_call_id": "call_oam7gdhnQd3afjKeDOyUQ5ja",
+          "content": "Invalid input: Invalid input: query: query is required"
+        }
+      ],
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "weather_current",
+            "description": "Текущая погода (температура, влажность, ветер, осадки) для заданных координат через Open-Meteo.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "description": "Широта (например, 52.52)"
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Долгота (например, 13.405)"
+                },
+                "timezone": {
+                  "type": "string",
+                  "description": "IANA-таймзона, например Europe/Berlin (по умолчанию auto)"
+                }
+              },
+              "required": [
+                "latitude",
+                "longitude"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "weather_forecast",
+            "description": "Прогноз погоды на несколько дней (макс./мин. температура, осадки, ветер, восход/закат) для заданных координат через Open-Meteo.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "latitude": {
+                  "type": "number",
+                  "description": "Широта (например, 52.52)"
+                },
+                "longitude": {
+                  "type": "number",
+                  "description": "Долгота (например, 13.405)"
+                },
+                "days": {
+                  "type": "number",
+                  "description": "Количество дней прогноза, 1–16 (по умолчанию 3)"
+                },
+                "timezone": {
+                  "type": "string",
+                  "description": "IANA-таймзона, например Europe/Berlin (по умолчанию auto)"
+                }
+              },
+              "required": [
+                "latitude",
+                "longitude"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "github_get_repository",
+            "description": "Информация о репозитории GitHub: описание, звёзды, форки, язык, лицензия и т.д.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "owner": {
+                  "type": "string",
+                  "description": "Владелец репозитория (например, torvalds)"
+                },
+                "repo": {
+                  "type": "string",
+                  "description": "Имя репозитория (например, linux)"
+                }
+              },
+              "required": [
+                "owner",
+                "repo"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "github_list_issues",
+            "description": "Список issues репозитория GitHub с фильтром по состоянию.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "owner": {
+                  "type": "string",
+                  "description": "Владелец репозитория"
+                },
+                "repo": {
+                  "type": "string",
+                  "description": "Имя репозитория"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "Фильтр по состоянию: open, closed, all (по умолчанию open)"
+                },
+                "limit": {
+                  "type": "number",
+                  "description": "Максимум результатов, 1–100 (по умолчанию 30)"
+                },
+                "includePullRequests": {
+                  "type": "boolean",
+                  "description": "Включать pull requests (они попадают в issues API)"
+                }
+              },
+              "required": [
+                "owner",
+                "repo"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "github_get_issue",
+            "description": "Детальная информация об issue GitHub, включая тело и исполнителей.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "owner": {
+                  "type": "string",
+                  "description": "Владелец репозитория"
+                },
+                "repo": {
+                  "type": "string",
+                  "description": "Имя репозитория"
+                },
+                "issueNumber": {
+                  "type": "number",
+                  "description": "Номер issue"
+                }
+              },
+              "required": [
+                "owner",
+                "repo",
+                "issueNumber"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "github_list_pull_requests",
+            "description": "Список pull requests репозитория GitHub.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "owner": {
+                  "type": "string",
+                  "description": "Владелец репозитория"
+                },
+                "repo": {
+                  "type": "string",
+                  "description": "Имя репозитория"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "Фильтр по состоянию: open, closed, all (по умолчанию open)"
+                },
+                "limit": {
+                  "type": "number",
+                  "description": "Максимум результатов, 1–100 (по умолчанию 30)"
+                }
+              },
+              "required": [
+                "owner",
+                "repo"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "github_search_repositories",
+            "description": "Поиск репозиториев GitHub по поисковому запросу.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Поисковый запрос GitHub (например, \"language:typescript stars:>100\")"
+                },
+                "limit": {
+                  "type": "number",
+                  "description": "Максимум результатов, 1–100 (по умолчанию 10)"
+                }
+              },
+              "required": [
+                "query"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "github_get_file",
+            "description": "Содержимое файла (или список файлов директории) в репозитории GitHub.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "owner": {
+                  "type": "string",
+                  "description": "Владелец репозитория"
+                },
+                "repo": {
+                  "type": "string",
+                  "description": "Имя репозитория"
+                },
+                "path": {
+                  "type": "string",
+                  "description": "Путь к файлу или директории внутри репозитория (например, README.md)"
+                },
+                "ref": {
+                  "type": "string",
+                  "description": "Ветка/тег/commit SHA (по умолчанию default branch)"
+                }
+              },
+              "required": [
+                "owner",
+                "repo",
+                "path"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
+      ],
+      "tool_choice": "auto"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "chunks": [
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "П",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ожал",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "уйста",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " у",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "каж",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "и",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ",",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " что",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " именно",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " ты",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " хоч",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ешь",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " искать",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " в",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " реп",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "озит",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "ория",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "х",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": " Git",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": "Hub",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540018,
+          "model": "openai/gpt-4o-mini",
+          "provider": "OpenAI",
+          "system_fingerprint": "fp_6a65994342",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "role": "assistant",
+                "content": ".",
+                "reasoning": null
+              },
+              "finish_reason": null,
+              "native_finish_reason": null,
+              "logprobs": null
+            }
+          ]
+        },
+        {
+          "id": "gen_2215582436559163393",
+          "object": "chat.completion.chunk",
+          "created": 1790540019,
+          "model": "openai/gpt-4o-mini",
+          "choices": [
+            {
+              "index": 0,
+              "delta": {
+                "content": null,
+                "reasoning": null
+              },
+              "finish_reason": "stop",
+              "native_finish_reason": "stop",
+              "logprobs": null
+            }
+          ],
+          "usage": {
+            "prompt_tokens": 851,
+            "completion_tokens": 23,
+            "total_tokens": 874,
+            "completion_tokens_details": {
+              "reasoning_tokens": 0,
+              "audio_tokens": 0,
+              "image_tokens": 0,
+              "accepted_prediction_tokens": null,
+              "rejected_prediction_tokens": null
+            },
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "server_tool_use": null,
+            "cost_rub": 0.01669987,
+            "cost": 0.01669987,
+            "plugins": null
+          }
+        }
+      ]
+    }
+  },
+  "duration_ms": 4135,
+  "error": null
+}
