@@ -1,0 +1,27 @@
+{
+  "host": "127.0.0.1",
+  "port": 3000,
+  "logLevel": "info",
+  "logRetentionDays": 7,
+  "maxResponseLogSize": 65536,
+  "requestTimeoutMs": 15000,
+  "defaultRetryCount": 2,
+  "retryBackoffMs": 250,
+  "corsEnabled": true,
+  "corsOrigins": [
+    "http://127.0.0.1:5173",
+    "http://localhost:5173"
+  ],
+  "debug": false,
+  "scheduler": {
+    "enabled": true,
+    "tickIntervalMs": 60000,
+    "maxStoredExecutionsPerTask": 1000,
+    "executionRetentionDays": 30,
+    "retry": {
+      "enabled": true,
+      "maxAttempts": 3,
+      "delayMs": 5000
+    }
+  }
+}

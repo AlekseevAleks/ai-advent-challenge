@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+web/dist/
+
+# Runtime data (logs, scheduler database, generated files)
+data/*
+!data/.gitkeep
+!data/logs/.gitkeep
+*.log
+
+# Local overrides / secrets
+.env
+.env.local
+config/*.local.json
+# Отдельный файл секретов: токены/keys НЕ должны попадать в git
+config/credentials.json
+
+# SQLite scheduler database
+data/scheduler.db
+data/scheduler.db-*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.tsbuildinfo
