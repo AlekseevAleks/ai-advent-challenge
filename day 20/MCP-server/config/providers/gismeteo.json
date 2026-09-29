@@ -1,0 +1,10 @@
+{
+  "id": "gismeteo",
+  "enabled": false,
+  "name": "Gismeteo",
+  "baseUrl": "https://api.gismeteo.net",
+  "settings": {
+    "timeout": 10000
+  },
+  "tools": {}
+}

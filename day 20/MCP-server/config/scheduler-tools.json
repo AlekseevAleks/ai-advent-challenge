@@ -1,0 +1,32 @@
+{
+  "create_scheduled_task": {
+    "enabled": false
+  },
+  "list_scheduled_tasks": {
+    "enabled": false
+  },
+  "get_scheduled_task": {
+    "enabled": false
+  },
+  "pause_scheduled_task": {
+    "enabled": false
+  },
+  "delete_scheduled_task": {
+    "enabled": false
+  },
+  "update_scheduled_task": {
+    "enabled": false
+  },
+  "get_task_summary": {
+    "enabled": false
+  },
+  "resume_scheduled_task": {
+    "enabled": false
+  },
+  "run_scheduled_task_now": {
+    "enabled": false
+  },
+  "get_task_history": {
+    "enabled": false
+  }
+}

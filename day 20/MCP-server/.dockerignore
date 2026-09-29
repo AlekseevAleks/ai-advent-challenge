@@ -1,0 +1,10 @@
+node_modules
+dist
+web/dist
+data
+.git
+.github
+tests
+web/SPEC.md
+*.log
+.DS_Store
