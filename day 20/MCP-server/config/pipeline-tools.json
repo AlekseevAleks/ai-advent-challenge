@@ -1,0 +1,11 @@
+{
+  "run_pipeline": {
+    "enabled": false
+  },
+  "list_pipelines": {
+    "enabled": false
+  },
+  "delete_pipeline": {
+    "enabled": false
+  }
+}
