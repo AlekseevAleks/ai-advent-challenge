@@ -1,0 +1,1 @@
+export const TEMPLATE_REF_RE = /\{\{\s*([^{}]+?)\s*\}\}/g;

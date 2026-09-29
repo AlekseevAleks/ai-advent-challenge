@@ -1,0 +1,16 @@
+{
+  "id": "weather",
+  "name": "Open-Meteo",
+  "enabled": true,
+  "baseUrl": "https://api.open-meteo.com",
+  "credentials": {},
+  "settings": {
+    "timeout": 10000
+  },
+  "tools": {
+    "weather_forecast": {
+      "enabled": true,
+      "settings": {}
+    }
+  }
+}
