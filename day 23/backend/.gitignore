@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+.idea/
+
+# Тесты и покрытие
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.mypy_cache/
+.ruff_cache/
+
+# Локальные данные приложения (индексы, документы, SQLite — создаются на диске)
+storage/
+
+# Окружение
+.env
+.env.local
+.env.*
+!.env.example
+*.log
+
+# IDE/ОС
+.DS_Store
+.idea/
+.vscode/
+*.swp
