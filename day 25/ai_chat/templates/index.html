@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Chat</title>
+  <link rel="stylesheet" href="/static/style.css?v=20261004-5" />
+</head>
+<body>
+  <div class="app">
+    <nav class="sidebar" id="sidebar">
+      <button class="tab-btn" data-tab="settings" title="Настройки">⚙️</button>
+      <button class="tab-btn" data-tab="mcp" title="MCP-server">🔌</button>
+      <button class="tab-btn" data-tab="logs" title="Логи">📜</button>
+      <a class="tab-btn" href="/dashboard/memory" title="Память агента">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 5a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V16a3 3 0 0 0 4 2.8V5Z" />
+          <path d="M12 5a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8V16a3 3 0 0 1-4 2.8V5Z" />
+        </svg>
+      </a>
+      <button class="tab-btn" data-tab="new" title="Новый чат">➕</button>
+      <button class="tab-btn" data-tab="chats" title="Список чатов">💬</button>
+    </nav>
+
+    <main class="workspace">
+      <!-- Экран настроек -->
+      <section class="screen" id="screen-settings">
+        <header class="screen-header">
+          <h1>Настройки</h1>
+        </header>
+        <div class="screen-body">
+          <form class="card form" id="config-form" autocomplete="off">
+            <label class="field">
+              <span>API URL</span>
+              <input type="text" id="api-url" placeholder="https://api.openai.com/v1" />
+            </label>
+            <label class="field">
+              <span>API Key</span>
+              <div class="input-row">
+                <input type="password" id="api-key" placeholder="sk-..." />
+                <button type="button" class="btn ghost" id="toggle-key">Показать</button>
+              </div>
+            </label>
+            <label class="field">
+              <span>Модель по умолчанию</span>
+              <input type="text" id="default-model" placeholder="gpt-4o-mini" />
+            </label>
+            <div class="actions">
+              <button type="submit" class="btn primary">Сохранить</button>
+              <button type="button" class="btn" id="test-connection">Проверить подключение</button>
+            </div>
+            <div class="status" id="config-status"></div>
+          </form>
+
+          <!-- Отдельная секция: RAG-сервер -->
+          <div class="card form rag-section" id="rag-section">
+            <h2 class="section-title">RAG-сервер</h2>
+            <label class="field">
+              <span>Адрес RAG-сервера</span>
+              <input type="text" id="rag-url" placeholder="http://localhost:8000" />
+              <small class="field-hint">Адрес RAG-сервиса для семантического поиска (эндпоинт /api/search).</small>
+            </label>
+            <div class="actions">
+              <button type="button" class="btn" id="rag-check">Проверить</button>
+              <button type="button" class="btn primary" id="rag-save" disabled>Сохранить</button>
+            </div>
+            <label class="field" id="rag-collection-field">
+              <span>Коллекция</span>
+              <select id="rag-collection" disabled></select>
+              <small class="field-hint">Доступно после проверки подключения.</small>
+            </label>
+            <label class="field" id="rag-strategy-field">
+              <span>Strategy</span>
+              <select id="rag-strategy" disabled></select>
+              <small class="field-hint">Доступно после выбора коллекции. Стратегия chunking отправляется в запрос к RAG.</small>
+            </label>
+            <div class="status" id="rag-status"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран подключения к MCP-серверу -->
+      <section class="screen" id="screen-mcp">
+        <header class="screen-header">
+          <h1>Подключение к MCP</h1>
+        </header>
+        <div class="screen-body">
+          <div class="mcp-tabs" id="mcp-tabs" aria-label="MCP-серверы"></div>
+          <form class="card form" id="mcp-form" autocomplete="off">
+            <label class="field">
+              <span>Адрес подключения к MCP серверу</span>
+              <input type="text" id="mcp-address" placeholder="http://127.0.0.1:8080/mcp" />
+              <small class="field-hint">Подключение по адресу выполняется без авторизации.</small>
+            </label>
+            <div class="actions">
+              <button type="button" class="btn ghost" id="mcp-save">Сохранить</button>
+              <button type="button" class="btn" id="mcp-check">Проверить</button>
+              <button type="button" class="btn primary" id="mcp-tools">Получить тулы</button>
+            </div>
+            <div class="status" id="mcp-status"></div>
+          </form>
+
+          <div class="mcp-tools hidden" id="mcp-tools-section">
+            <h2 id="mcp-tools-title">Инструменты MCP-сервера</h2>
+            <div class="table-wrap">
+              <table class="mcp-table" id="mcp-tools-table">
+                <thead>
+                  <tr>
+                    <th class="col-num">#</th>
+                    <th class="col-name">Имя</th>
+                    <th>Описание</th>
+                    <th>Input schema</th>
+                  </tr>
+                </thead>
+                <tbody id="mcp-tools-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран логов запросов -->
+      <section class="screen" id="screen-logs">
+        <header class="screen-header">
+          <h1>Логи</h1>
+          <div class="actions">
+            <input type="text" id="log-search" class="search" placeholder="Поиск по id, чату, модели..." />
+            <button type="button" class="btn" id="reload-logs">Обновить</button>
+          </div>
+        </header>
+        <div class="screen-body">
+          <div class="table-wrap" id="logs-wrap">
+            <table class="logs-table" id="logs-table">
+              <thead>
+                <tr>
+                  <th class="col-time">Время</th>
+                  <th class="col-chat">Чат</th>
+                  <th class="col-model">Модель</th>
+                  <th class="col-status">Статус</th>
+                  <th class="col-duration">Длительность</th>
+                  <th class="col-id">Request ID</th>
+                  <th class="col-open"></th>
+                </tr>
+              </thead>
+              <tbody id="logs-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран нового чата -->
+      <section class="screen" id="screen-new">
+        <header class="screen-header">
+          <h1>Новый чат</h1>
+        </header>
+        <div class="screen-body">
+          <div class="card form">
+            <label class="field">
+              <span>Модель</span>
+              <input type="text" id="model-search" placeholder="Поиск по названию модели..." />
+              <select id="model-select" size="8"></select>
+            </label>
+            <div class="actions">
+              <button type="button" class="btn primary" id="create-chat">Создать</button>
+              <button type="button" class="btn" id="reload-models">Обновить список</button>
+            </div>
+            <div class="status" id="new-status"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран списка чатов -->
+      <section class="screen" id="screen-chats">
+        <header class="screen-header">
+          <h1>Чаты</h1>
+          <input type="text" id="chat-search" class="search" placeholder="Поиск чатов..." />
+        </header>
+        <div class="screen-body">
+          <div class="chat-list" id="chat-list"></div>
+        </div>
+      </section>
+
+      <!-- Экран диалога -->
+      <section class="screen" id="screen-chat">
+        <header class="screen-header">
+          <div class="chat-title-wrap">
+            <h1 id="chat-title">Чат</h1>
+            <span class="badge" id="chat-model"></span>
+          </div>
+          <div class="actions">
+            <label class="rag-toggle" title="Перед ответом выполнить поиск релевантных документов в RAG-сервисе">
+              <input type="checkbox" id="rag-enabled" />
+              <span>Использовать RAG</span>
+            </label>
+            <button type="button" class="btn ghost" id="export-chat">Экспорт</button>
+            <button type="button" class="btn ghost" id="clear-chat">Очистить</button>
+          </div>
+        </header>
+        <div class="chat-layout">
+          <div class="chat-main">
+            <div class="messages" id="messages"></div>
+            <div class="composer">
+              <textarea id="message-input" rows="1" placeholder="Введите сообщение... (Enter — отправить, Shift+Enter — новая строка)"></textarea>
+              <button type="button" class="btn primary" id="send-btn">Отправить</button>
+              <button type="button" class="btn danger hidden" id="stop-btn">Стоп</button>
+            </div>
+          </div>
+          <aside class="usage-panel" id="usage-panel">
+            <div class="usage-head">
+              <h2>Статистика</h2>
+              <button type="button" class="icon-btn" id="usage-toggle" title="Свернуть/развернуть статистику">▾</button>
+            </div>
+            <div class="usage-body" id="usage-body">
+              <div class="usage-row">
+                <span>Токены запроса</span>
+                <strong id="usage-prompt">0</strong>
+              </div>
+              <div class="usage-row">
+                <span>Токены ответа</span>
+                <strong id="usage-completion">0</strong>
+              </div>
+              <div class="usage-row">
+                <span>Всего токенов</span>
+                <strong id="usage-total">0</strong>
+              </div>
+              <div class="usage-row usage-cost">
+                <span>Стоимость</span>
+                <strong id="usage-cost">—</strong>
+              </div>
+              <p class="usage-note" id="usage-note">Данные появятся после первого ответа.</p>
+            </div>
+            <div class="task-state-panel" id="task-state-panel">
+              <div class="task-state-head">
+                <h2>Task State</h2>
+                <button type="button" class="btn ghost icon-btn" id="task-state-refresh" title="Обновить состояние задачи">↻</button>
+              </div>
+              <div class="task-state-body" id="task-state-body">
+                <p class="task-state-empty">Состояние задачи появится после первого сообщения.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <div class="modal hidden" id="log-modal">
+    <div class="modal-backdrop" id="log-backdrop"></div>
+    <div class="modal-window">
+      <header class="modal-header">
+        <h2 id="log-title">Лог запроса</h2>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" id="log-copy">Копировать</button>
+          <button type="button" class="btn ghost" id="log-close">Закрыть</button>
+        </div>
+      </header>
+      <div class="modal-body">
+        <pre class="log-json" id="log-content"></pre>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js?v=20261004-5"></script>
+</body>
+</html>
