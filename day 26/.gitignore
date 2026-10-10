@@ -1,0 +1,38 @@
+# Секреты и токены доступа
+config.json
+.env
+.env.*
+
+# Личные данные пользователя (история чатов и память)
+chats.json
+memory.db
+logs/
+
+# Task State (память задачи: обработанная переписка по чатам)
+task_states/
+
+# Логи приложения
+*.log
+*.tmp
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
