@@ -1,0 +1,36 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# --- Node ---
+node_modules/
+dist/
+*.tsbuildinfo
+
+# --- Локальные данные приложения (индексы, документы, SQLite) ---
+backend/storage/
+storage/
+docker-data/
+
+# --- Окружение и IDE ---
+.env
+.env.local
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.swp
+
+# --- Docker ---
+*.pid
