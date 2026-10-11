@@ -1,0 +1,38 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: rag-lab-backend
+    environment:
+      # Ollama запущен на хост-машине. Внутри контейнера localhost — это сам контейнер,
+      # поэтому используем host.docker.internal (поддерживается Docker Desktop
+      # на macOS/Windows и в новых версиях Docker Engine на Linux).
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-nomic-embed-text}
+      EMBEDDING_BATCH_SIZE: ${EMBEDDING_BATCH_SIZE:-32}
+      MAX_FILE_SIZE_MB: ${MAX_FILE_SIZE_MB:-50}
+      MAX_FILES_PER_REQUEST: ${MAX_FILES_PER_REQUEST:-100}
+      STORAGE_DIR: /data
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./docker-data/storage:/data
+    extra_hosts:
+      # Для Linux без Docker Desktop: разрешаем host.docker.internal (только для
+      # целей сопоставления; на чистом Linux добавьте в /etc/hosts строку
+      # 127.0.0.1  host.docker.internal)
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: rag-lab-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    restart: unless-stopped

@@ -1,0 +1,26 @@
+# Зависимости
+node_modules/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Сборка
+dist/
+build/
+*.tsbuildinfo
+node_modules/.vite/
+
+# Логи и кэш
+*.log
+npm-debug.log*
+.npm/
+*.local
+
+# IDE/ОС
+.DS_Store
+.idea/
+.vscode/
+*.swp

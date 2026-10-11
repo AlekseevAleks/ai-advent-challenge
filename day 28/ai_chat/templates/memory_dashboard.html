@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Память агента — дашборд</title>
+  <link rel="stylesheet" href="/static/memory_dashboard.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="btn ghost" href="/">← В чат</a>
+      <h1>Память агента</h1>
+      <span class="badge" id="last-update">—</span>
+    </div>
+    <div class="topbar-right">
+      <label class="field-inline">
+        <span>session_id</span>
+        <input type="text" id="session-id" placeholder="id чата" />
+      </label>
+      <label class="field-inline">
+        <span>user_id</span>
+        <input type="text" id="user-id" value="local-user" />
+      </label>
+      <label class="field-inline checkbox">
+        <input type="checkbox" id="auto-refresh" checked />
+        <span>Автообновление (1с)</span>
+      </label>
+      <button type="button" class="btn" id="refresh">Обновить</button>
+    </div>
+  </header>
+
+  <section class="toggles">
+    <span class="toggles-label">Слои в промте (ablation):</span>
+    <label class="chip chip-short">
+      <input type="checkbox" id="toggle-short" checked />
+      <span>short-term</span>
+    </label>
+    <label class="chip chip-working">
+      <input type="checkbox" id="toggle-working" checked />
+      <span>working</span>
+    </label>
+    <label class="chip chip-long">
+      <input type="checkbox" id="toggle-long" checked />
+      <span>long-term</span>
+    </label>
+    <span class="toggles-hint" id="toggles-hint"></span>
+  </section>
+
+  <main class="columns">
+    <!-- SHORT-TERM -->
+    <section class="panel panel-short">
+      <header class="panel-header">
+        <h2>SHORT-TERM</h2>
+        <p class="panel-desc">Последние сообщения диалога. FIFO, лимит 20 сообщений / ~2000 токенов. Пишется на каждое сообщение user и assistant.</p>
+        <div class="panel-stats">
+          <span>Записей: <strong id="short-count">0</strong></span>
+          <span>~токенов: <strong id="short-tokens">0</strong></span>
+        </div>
+      </header>
+      <div class="panel-body" id="short-list"></div>
+    </section>
+
+    <!-- WORKING -->
+    <section class="panel panel-working">
+      <header class="panel-header">
+        <h2>WORKING</h2>
+        <p class="panel-desc">Структурированное состояние текущей задачи: цель, ограничения, план, результаты, статус. Живёт, пока задача активна.</p>
+        <div class="panel-stats">
+          <span>Полей: <strong id="working-count">0</strong></span>
+        </div>
+        <div class="panel-actions">
+          <button type="button" class="btn small" id="collapse-working">Схлопнуть в long-term</button>
+          <button type="button" class="btn small ghost" id="clear-working">Очистить</button>
+        </div>
+      </header>
+      <div class="panel-body" id="working-tree"></div>
+    </section>
+
+    <!-- LONG-TERM -->
+    <section class="panel panel-long">
+      <header class="panel-header">
+        <h2>LONG-TERM</h2>
+        <p class="panel-desc">Устойчивые факты и предпочтения (SQLite). Сохраняются между сессиями, доступ по user_id.</p>
+        <div class="panel-stats">
+          <span>Фактов: <strong id="long-count">0</strong></span>
+        </div>
+        <input type="text" id="long-search" class="search" placeholder="Поиск по фактам..." />
+      </header>
+      <div class="panel-body" id="long-list"></div>
+    </section>
+  </main>
+
+  <section class="bottom">
+    <div class="bottom-block">
+      <header class="bottom-header">
+        <h2>Собранный промт для LLM</h2>
+        <span class="legend">
+          <span class="dot dot-short"></span>short
+          <span class="dot dot-working"></span>working
+          <span class="dot dot-long"></span>long
+          <span class="dot dot-current"></span>текущий вопрос
+        </span>
+      </header>
+      <pre class="prompt-preview" id="prompt-preview"></pre>
+    </div>
+    <div class="bottom-block">
+      <header class="bottom-header">
+        <h2>Лог маршрутизации</h2>
+        <button type="button" class="btn small ghost" id="clear-events">Очистить лог</button>
+      </header>
+      <div class="events" id="events"></div>
+    </div>
+  </section>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="/static/memory_dashboard.js"></script>
+</body>
+</html>
