@@ -1,0 +1,39 @@
+# Секреты и токены доступа
+ai_chat/config.json
+.env
+.env.*
+
+# Личные данные пользователя (история чатов и память)
+ai_chat/chats.json
+ai_chat/memory.db
+ai_chat/logs/
+
+# Task State (память задачи: обработанная переписка по чатам)
+ai_chat/task_states/
+
+# Логи приложения
+logs/
+*.log
+*.tmp
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
