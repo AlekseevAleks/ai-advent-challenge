@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Local LLM — Панель управления</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Основная навигация">
+      <a class="brand" href="#overview" aria-label="Local LLM — главная">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span><strong>Local LLM</strong><small>Private console</small></span>
+      </a>
+      <div class="nav-label">СЕРВИС</div>
+      <nav class="nav-list">
+        <button class="nav-item active" data-page="overview"><span class="nav-icon">◈</span>Обзор</button>
+        <button class="nav-item" data-page="settings"><span class="nav-icon">⚙</span>Модель и настройки</button>
+        <button class="nav-item" data-page="logs"><span class="nav-icon">≡</span>Журнал запросов<span id="nav-log-count" class="nav-count">—</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="privacy-mini"><span class="privacy-dot"></span><div><strong>Локальный режим</strong><small>Ollama · без внешних AI API</small></div></div>
+        <div class="sidebar-version">v1.0 · API <span id="sidebar-port">—</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumb"><span>Панель</span><span class="crumb-sep">/</span><strong id="page-breadcrumb">Обзор</strong></div>
+        <div class="topbar-actions">
+          <label class="key-entry" title="Ключ хранится только в памяти этой вкладки">
+            <span>API key</span>
+            <input id="api-key-input" type="password" placeholder="не задан" autocomplete="off" aria-label="API key для панели">
+            <button id="api-key-apply" class="button button-quiet button-small" type="button">Применить</button>
+          </label>
+          <span id="service-pill" class="status-pill status-loading"><i></i><span>Проверка…</span></span>
+          <button id="refresh-button" class="icon-button" type="button" aria-label="Обновить данные" title="Обновить">↻</button>
+        </div>
+      </header>
+
+      <section id="page-overview" class="page active" aria-labelledby="overview-title">
+        <div class="page-heading">
+          <div><div class="eyebrow">ЛОКАЛЬНЫЙ СТАТУС</div><h1 id="overview-title">Обзор сервиса</h1><p>Состояние API, Ollama и последних обращений к модели.</p></div>
+          <button class="button button-secondary" data-go="settings" type="button">Настроить модель <span>→</span></button>
+        </div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-label">API</div><div id="stat-api" class="stat-value"><span class="skeleton"></span></div><div id="stat-api-sub" class="stat-sub">FastAPI</div><div class="stat-icon icon-blue">⌘</div></article>
+          <article class="stat-card"><div class="stat-label">OLLAMA</div><div id="stat-ollama" class="stat-value"><span class="skeleton"></span></div><div id="stat-ollama-sub" class="stat-sub">локальный inference</div><div class="stat-icon icon-green">◉</div></article>
+          <article class="stat-card"><div class="stat-label">АКТИВНАЯ МОДЕЛЬ</div><div id="stat-model" class="stat-value model-value"><span class="skeleton"></span></div><div id="stat-model-sub" class="stat-sub">из runtime-настроек</div><div class="stat-icon icon-violet">✳</div></article>
+          <article class="stat-card"><div class="stat-label">ЗАПРОСЫ В ЖУРНАЛЕ</div><div id="stat-logs" class="stat-value"><span class="skeleton"></span></div><div id="stat-logs-sub" class="stat-sub">JSON-файлы на диске</div><div class="stat-icon icon-amber">▤</div></article>
+        </div>
+
+        <div class="overview-grid">
+          <article class="panel-card health-card">
+            <div class="card-heading"><div><div class="eyebrow">ЗДОРОВЬЕ</div><h2>Подключения</h2></div><span class="subtle-icon">⌁</span></div>
+            <div class="health-row"><span class="health-indicator" id="api-indicator"></span><div class="health-copy"><strong>FastAPI</strong><small id="api-detail">Проверяем liveness endpoint</small></div><span id="api-health-label" class="health-label">—</span></div>
+            <div class="health-row"><span class="health-indicator" id="ollama-indicator"></span><div class="health-copy"><strong>Ollama</strong><small id="ollama-detail">Проверяем /api/tags</small></div><span id="ollama-health-label" class="health-label">—</span></div>
+            <div class="health-row"><span class="health-indicator" id="model-indicator"></span><div class="health-copy"><strong>Модель</strong><small id="model-detail">Установлена и готова к запросам</small></div><span id="model-health-label" class="health-label">—</span></div>
+            <div class="health-footer"><span>Адрес Ollama</span><code id="ollama-url">—</code></div>
+          </article>
+          <article class="panel-card quick-card">
+            <div class="card-heading"><div><div class="eyebrow">БЫСТРЫЙ ДОСТУП</div><h2>Управление</h2></div></div>
+            <button class="quick-action" data-go="settings" type="button"><span class="quick-icon icon-violet">⚙</span><span><strong>Настройки модели</strong><small>Модель, контекст, лимиты и журнал</small></span><b>→</b></button>
+            <button class="quick-action" data-go="logs" type="button"><span class="quick-icon icon-blue">≡</span><span><strong>Журнал запросов</strong><small>Тексты диалогов и ответы модели</small></span><b>→</b></button>
+            <div class="runtime-note"><span>↗</span> Runtime-настройки хранятся в памяти и сбрасываются при перезапуске.</div>
+          </article>
+        </div>
+
+        <article class="panel-card recent-card">
+          <div class="card-heading"><div><div class="eyebrow">АКТИВНОСТЬ</div><h2>Последние запросы</h2></div><button class="text-button" data-go="logs" type="button">Все запросы →</button></div>
+          <div id="overview-recent" class="recent-list"><div class="empty-state compact">Загрузка журнала…</div></div>
+        </article>
+      </section>
+
+      <section id="page-settings" class="page" aria-labelledby="settings-title" hidden>
+        <div class="page-heading">
+          <div><div class="eyebrow">RUNTIME CONFIGURATION</div><h1 id="settings-title">Модель и настройки</h1><p>Изменения применяются к новым запросам сразу, без перезапуска.</p></div>
+          <span id="modified-badge" class="modified-badge" hidden>Есть несохранённые runtime-изменения</span>
+        </div>
+        <div class="notice notice-warning"><span class="notice-icon">!</span><div><strong>Журнал сохраняет полные тексты</strong><p>Запросы и ответы записываются в JSON-файлы без шифрования. Файлы находятся в <code id="log-directory-notice">logs/requests</code> и исключены из Git. Выключите журнал ниже, если сохранение содержимого не требуется.</p></div></div>
+
+        <form id="settings-form" class="settings-layout">
+          <div class="settings-column">
+            <article class="panel-card form-card">
+              <div class="card-heading"><div><div class="eyebrow">OLLAMA</div><h2>Провайдер и модель</h2></div><span id="model-check-badge" class="status-label">Не проверена</span></div>
+              <div class="form-grid">
+                <label class="field field-wide"><span>Адрес Ollama</span><input id="field-base-url" name="ollama_base_url" type="url" required spellcheck="false" placeholder="http://127.0.0.1:11434"><small>По умолчанию Ollama доступна только на этом компьютере.</small></label>
+                <label class="field field-wide"><span>Модель</span><div class="model-picker"><select id="field-model-select" aria-label="Выбрать установленную модель"><option value="">Список моделей загружается…</option></select><input id="field-model" name="ollama_model" type="text" required maxlength="128" placeholder="llama3.2:3b" spellcheck="false"></div><small>Выберите установленную модель из списка или введите точное имя из <code>ollama list</code>.</small></label>
+                <label class="field"><span>Timeout генерации, сек.</span><input id="field-timeout" name="ollama_timeout" type="number" min="1" max="3600" step="1" required></label>
+                <label class="field"><span>Timeout подключения, сек.</span><input id="field-connect-timeout" name="ollama_connect_timeout" type="number" min="0.1" max="60" step="0.1" required></label>
+                <label class="field"><span>Окно модели · num_ctx</span><input id="field-num-ctx" name="ollama_num_ctx" type="number" min="512" max="131072" step="1" required></label>
+                <label class="field"><span>Параллельность Ollama</span><input id="field-concurrency" name="ollama_max_concurrency" type="number" min="0" max="64" step="1" required><small>1 — очередь по одному; 0 — без лимита.</small></label>
+              </div>
+              <div class="form-footer"><button id="probe-button" class="button button-secondary" type="button">Проверить подключение</button><span id="probe-message" class="inline-message" role="status"></span></div>
+            </article>
+
+            <article class="panel-card form-card">
+              <div class="card-heading"><div><div class="eyebrow">КОНТЕКСТ И ЛИМИТЫ</div><h2>Ограничения запросов</h2></div></div>
+              <div class="form-grid">
+                <label class="field"><span>Макс. символов в сообщении</span><input id="field-message-chars" name="max_message_chars" type="number" min="1" max="1000000" required></label>
+                <label class="field"><span>Макс. сообщений в истории</span><input id="field-history" name="max_history_messages" type="number" min="1" max="10000" required></label>
+                <label class="field"><span>Макс. входной контекст · токены</span><input id="field-context" name="max_context_tokens" type="number" min="1" max="131072" required></label>
+                <label class="field"><span>Резерв ответа · токены</span><input id="field-output" name="max_output_tokens" type="number" min="1" max="131072" required></label>
+                <label class="field"><span>Запас оценки, %</span><input id="field-tolerance" name="context_token_tolerance" type="number" min="0" max="1" step="0.01" required><small>Доля от 0 до 1; например, 0.05 = 5%.</small></label>
+                <label class="field"><span>Rate limit</span><input id="field-rate-limit" name="rate_limit" type="text" maxlength="32" pattern="[0-9]+/(second|minute|hour|day)" required placeholder="10/minute"><small>Формат: число/second|minute|hour|day.</small></label>
+              </div>
+              <div id="context-budget-preview" class="budget-preview">Требование: MAX_CONTEXT_TOKENS + MAX_OUTPUT_TOKENS ≤ OLLAMA_NUM_CTX</div>
+            </article>
+          </div>
+
+          <div class="settings-column">
+            <article class="panel-card form-card">
+              <div class="card-heading"><div><div class="eyebrow">ДИСК И ПРИВАТНОСТЬ</div><h2>Журнал запросов</h2></div><span class="disk-icon">▤</span></div>
+              <label class="toggle-row"><span><strong>Сохранять запросы к модели</strong><small>Полные тексты сообщений и ответов в JSON-файлах.</small></span><input id="field-log-enabled" name="request_log_enabled" type="checkbox"><span class="toggle-ui"></span></label>
+              <div class="log-path-box"><span>Каталог</span><code id="log-directory">logs/requests</code><small>Путь задаётся через REQUEST_LOG_DIR; меняется после перезапуска.</small></div>
+              <div class="log-path-box"><span>Хранение</span><strong id="log-retention">500 файлов</strong><small>Старые файлы удаляются автоматически при превышении лимита.</small></div>
+              <div class="notice notice-danger"><span class="notice-icon">!</span><div><strong>Содержимое не шифруется</strong><p>Не сохраняйте чувствительные данные. Не публикуйте и не отправляйте каталог журналов третьим лицам.</p></div></div>
+            </article>
+
+            <article class="panel-card form-card readonly-card">
+              <div class="card-heading"><div><div class="eyebrow">ЗАЩИЩЁННЫЕ ПАРАМЕТРЫ</div><h2>Только просмотр</h2></div></div>
+              <div class="readonly-row"><span>API bind</span><code id="read-host">—</code></div>
+              <div class="readonly-row"><span>Порт</span><code id="read-port">—</code></div>
+              <div class="readonly-row"><span>API key</span><code id="read-api-key">—</code></div>
+              <p class="helper-text">Секрет не отображается в панели и не может быть изменён через неё. HOST/PORT и API_KEY задаются в .env и применяются после перезапуска.</p>
+            </article>
+          </div>
+
+          <div class="settings-actions">
+            <button id="reset-settings" class="button button-quiet" type="button">Сбросить к .env</button>
+            <span id="settings-message" class="inline-message" role="status"></span>
+            <button id="save-settings" class="button button-primary" type="submit">Применить настройки</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="page-logs" class="page" aria-labelledby="logs-title" hidden>
+        <div class="page-heading">
+          <div><div class="eyebrow">JSON REQUEST JOURNAL</div><h1 id="logs-title">Журнал запросов</h1><p>История вызовов модели. Подробности включают исходные сообщения и ответ.</p></div>
+          <button id="clear-logs" class="button button-danger-outline" type="button">Удалить все логи</button>
+        </div>
+        <div class="notice notice-warning logs-notice"><span class="notice-icon">!</span><div><strong>Логи содержат пользовательский текст</strong><p>Записи хранятся в открытом виде в JSON-файлах. Доступ к этой странице защищён API key, если он настроен. Удаление очищает файлы и индекс.</p></div></div>
+        <div class="log-toolbar panel-card">
+          <label class="search-field"><span>⌕</span><input id="log-search" type="search" placeholder="Поиск в тексте запроса/ответа…"></label>
+          <select id="log-status-filter" aria-label="Фильтр по статусу"><option value="">Все статусы</option><option value="ok">Успешные</option><option value="error">Ошибки</option><option value="rejected">Отклонённые</option></select>
+          <select id="log-model-filter" aria-label="Фильтр по модели"><option value="">Все модели</option></select>
+          <button id="logs-refresh" class="button button-secondary" type="button">Обновить</button>
+        </div>
+        <div class="logs-summary"><span id="logs-count">Загрузка…</span><span id="logs-storage">—</span></div>
+        <article class="panel-card table-card">
+          <div class="table-wrap"><table><thead><tr><th>Время</th><th>Статус</th><th>Модель</th><th>Сообщения</th><th>Токены (≈)</th><th>Время</th><th></th></tr></thead><tbody id="logs-table-body"><tr><td colspan="7" class="table-empty">Загрузка записей…</td></tr></tbody></table></div>
+          <div class="pagination"><button id="logs-prev" class="button button-quiet button-small" type="button">← Назад</button><span id="logs-page-label">—</span><button id="logs-next" class="button button-quiet button-small" type="button">Дальше →</button></div>
+        </article>
+        <article id="log-detail" class="panel-card detail-card" hidden>
+          <div class="card-heading"><div><div class="eyebrow">ПОЛНАЯ ЗАПИСЬ</div><h2 id="detail-title">Запрос</h2></div><button id="detail-close" class="icon-button" type="button" aria-label="Закрыть">×</button></div>
+          <div id="detail-meta" class="detail-meta"></div>
+          <div class="detail-section"><h3>Сообщения пользователя и история</h3><div id="detail-messages" class="conversation-list"></div></div>
+          <div class="detail-section"><h3>Ответ модели</h3><pre id="detail-response" class="response-box"></pre></div>
+          <div id="detail-error-wrap" class="detail-section" hidden><h3>Ошибка</h3><pre id="detail-error" class="error-box"></pre></div>
+          <div class="detail-footer"><code id="detail-file"></code></div>
+        </article>
+      </section>
+
+      <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+      <footer class="page-footer"><span>Local LLM Service</span><span>Локально · без внешних AI API</span></footer>
+    </main>
+  </div>
+</body>
+</html>
