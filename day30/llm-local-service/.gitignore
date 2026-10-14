@@ -1,0 +1,60 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ---- Виртуальные окружения ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Секреты и локальная конфигурация ----
+# Реальный .env НИКОГДА не попадает в репозиторий.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- Тестовые артефакты ----
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# ---- Отчёты нагрузочного теста (генерируются локально) ----
+reports/
+*.report.json
+load_test_results.json
+
+# ---- Журналы запросов модели ----
+# Здесь лежат JSON-файлы с полными сообщениями и ответами (если запись включена).
+# Они могут содержать чувствительные данные и никогда не должны коммититься.
+logs/
+
+# ---- Данные моделей Ollama (на случай локальной установки в проект) ----
+models/
+ollama_data/
+
+# ---- Редакторы и ОС ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---- Прочее ----
+*.bak
+*.tmp
+*.zip
